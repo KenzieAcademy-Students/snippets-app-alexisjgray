@@ -1,0 +1,15 @@
+@import 'custom';
+@import url('https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,400;0,700;1,400&display=swap');
+
+// Bootstrap 4 includes around two dozen CSS custom properties (variables).
+// These provide easy access to commonly used values like our theme colors,
+// breakpoints, and primary font
+// https://getbootstrap.com/docs/4.4/getting-started/theming/#variable-defaults
+
+a {
+  color: var(--primary);
+}
+
+textarea {
+  resize: none;
+}
