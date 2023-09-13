@@ -61,7 +61,7 @@ router.get("/:id", async (req, res) => {
 router.delete("/:id", requireAuth, async (req, res, next) => {
   const { id } = req.params;
   const deletePost = await Post.findByIdAndDelete(id);
-  if (!deletePost) return res.sendStatus(400);
+  if (!deletePost) return res.sendStatus(404);
   res.status(200).json("Placeholder response");
 });
 
