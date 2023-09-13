@@ -59,10 +59,10 @@ router.get("/:id", async (req, res) => {
 });
 
 router.delete("/:id", requireAuth, async (req, res, next) => {
-  /**
-   * Your Code Here
-   */
-  res.status(404).json("Placeholder response");
+  const { id } = req.params;
+  const deletePost = await Post.findByIdAndDelete(id);
+  if (!deletePost) return res.sendStatus(400);
+  res.status(200).json("Placeholder response");
 });
 
 router.all("/like/:postId", requireAuth, async (req, res) => {
