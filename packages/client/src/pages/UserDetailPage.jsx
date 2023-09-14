@@ -109,6 +109,7 @@ const UserDetailPage = () => {
               <Figure.Image src={user.profile_image} className="w-100 h-100" />
             </Figure>
             <Card.Title>{params.uname}</Card.Title>
+            <Card.Text>{user.email}</Card.Text>
             {state.user.username === params.uname && (
               <div
                 onClick={() => setOpen(!open)}

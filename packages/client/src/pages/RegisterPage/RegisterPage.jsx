@@ -111,7 +111,7 @@ const RegisterPage = () => {
             <Form.Group controlId="email-register">
               <Form.Label>Email</Form.Label>
               <Form.Control
-                type="text"
+                type="email"
                 name="email"
                 placeholder="Email"
                 required
