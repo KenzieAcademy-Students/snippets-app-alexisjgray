@@ -1,4 +1,7 @@
 Cody helped me
+https://plainenglish.io/blog/how-to-implement-a-search-bar-in-react-js
+https://dev.to/salehmubashar/search-bar-in-react-js-545l
+https://stackoverflow.com/questions/2803532/how-do-i-put-a-clear-button-inside-my-html-text-input-box-like-the-iphone-does
 
 # Welcome to Kenzie Snippets!
 

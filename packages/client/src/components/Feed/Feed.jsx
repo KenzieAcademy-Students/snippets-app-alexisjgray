@@ -4,6 +4,7 @@ import { toast } from "react-toastify";
 import api from "../../utils/api.utils.js";
 import { Post, LoadingSpinner } from "../";
 import { useProvideAuth } from "../../hooks/useAuth";
+import SearchBar from "../Searchbar/Searchbar.jsx";
 
 const initialState = {
   postText: "",
@@ -21,6 +22,8 @@ const Feed = () => {
 
   const [data, setData] = useState(initialState);
   const [validated, setValidated] = useState(false);
+
+  const [keywords, setKeywords] = useState("");
 
   const handleInputChange = (event) => {
     setData({
@@ -118,13 +121,19 @@ const Feed = () => {
             {data.isSubmitting ? <LoadingSpinner /> : "Post"}
           </Button>
         </Form>
+        <SearchBar keywords={keywords} setKeywords={setKeywords} />
       </Container>
 
       {!postLoading ? (
         <Container className="pt-3 pb-3">
           <h6>Recent Snips</h6>
           {postError && "Error fetching posts"}
-          {posts && posts.map((post) => <Post key={post._id} post={post} />)}
+          {posts &&
+            posts
+              .filter((post) => {
+                return post.text.toLowerCase().includes(keywords.toLowerCase());
+              })
+              .map((post) => <Post key={post._id} post={post} />)}
         </Container>
       ) : (
         <LoadingSpinner full />
