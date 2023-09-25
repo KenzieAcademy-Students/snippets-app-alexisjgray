@@ -5,6 +5,7 @@ import { LoadingSpinner, Post } from "../components";
 import { useProvideAuth } from "../hooks/useAuth";
 import { useRequireAuth } from "../hooks/useRequireAuth";
 import api from "../utils/api.utils.js";
+import AvatarPicker from "./RegisterPage/AvatarPicker/AvatarPicker";
 
 const UserDetailPage = () => {
   const { state } = useProvideAuth();
@@ -18,6 +19,9 @@ const UserDetailPage = () => {
     errorMessage: null,
   });
 
+  const [profileImage, setProfileImage] = useState("");
+  const [openAvatarPicker, setOpenAvatarPicker] = useState(false);
+
   let navigate = useNavigate();
   let params = useParams();
   const {
@@ -29,6 +33,7 @@ const UserDetailPage = () => {
       try {
         const userResponse = await api.get(`/users/${params.uname}`);
         setUser(userResponse.data);
+        setProfileImage(userResponse.data.profile_image);
         setLoading(false);
       } catch (err) {
         console.error(err.message);
@@ -36,6 +41,29 @@ const UserDetailPage = () => {
     };
     isAuthenticated && getUser();
   }, [params.uname, isAuthenticated]);
+
+  const handleAvatarChange = (event) => {
+    setProfileImage({
+      ...profileImage,
+      [event.target.profile_image]: event.target.value,
+    });
+  };
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+
+    const response = await api.put(`/avatar/:id/${profileImage}`, {
+      avatar: profileImage,
+    });
+    const copyAvatar = [...avatar];
+
+    const avatarEdit = copyAvatar.find(
+      (avatar) => avatar.index === profileImage
+    );
+
+    avatarEdit.avatar = profileImage;
+    setProfileImage(copyAvatar);
+  };
 
   const handleInputChange = (event) => {
     setData({
@@ -143,7 +171,6 @@ const UserDetailPage = () => {
                           Must be 8-20 characters long.
                         </Form.Text>
                       </Form.Group>
-
                       {data.errorMessage && (
                         <span className="form-error">{data.errorMessage}</span>
                       )}
@@ -153,6 +180,32 @@ const UserDetailPage = () => {
                     </Form>
                   </div>
                 </div>
+              </Container>
+            )}
+            {state.user.username === params.uname && (
+              <div>
+                <button
+                  onClick={() => setOpenAvatarPicker(!openAvatarPicker)}
+                  style={{ cursor: "pointer", color: "#BFBFBF" }}
+                >
+                  Select New Avatar
+                </button>
+              </div>
+            )}
+            {openAvatarPicker && (
+              <Container animation="false">
+                <AvatarPicker
+                  profileImage={profileImage}
+                  setProfileImage={setProfileImage}
+                />
+                <Form>
+                  <Button
+                    type="submit"
+                    onClick={(e) => handleSubmit(avatar.index)}
+                  >
+                    {profileImage.isSubmitting ? <LoadingSpinner /> : "Update"}
+                  </Button>
+                </Form>
               </Container>
             )}
           </Card.Body>
