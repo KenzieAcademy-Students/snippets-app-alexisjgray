@@ -52,17 +52,11 @@ const UserDetailPage = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    const response = await api.put(`/avatar/:id/${profileImage}`, {
-      avatar: profileImage,
+    const userResponse = await api.put(`/users/${params.uname}/avatar`, {
+      profile_image: profileImage,
     });
-    const copyAvatar = [...avatar];
-
-    const avatarEdit = copyAvatar.find(
-      (avatar) => avatar.index === profileImage
-    );
-
-    avatarEdit.avatar = profileImage;
-    setProfileImage(copyAvatar);
+    setUser({ ...user, profile_image: profileImage });
+    setOpenAvatarPicker(false);
   };
 
   const handleInputChange = (event) => {
@@ -198,11 +192,8 @@ const UserDetailPage = () => {
                   profileImage={profileImage}
                   setProfileImage={setProfileImage}
                 />
-                <Form>
-                  <Button
-                    type="submit"
-                    onClick={(e) => handleSubmit(avatar.index)}
-                  >
+                <Form onSubmit={handleSubmit}>
+                  <Button type="submit">
                     {profileImage.isSubmitting ? <LoadingSpinner /> : "Update"}
                   </Button>
                 </Form>

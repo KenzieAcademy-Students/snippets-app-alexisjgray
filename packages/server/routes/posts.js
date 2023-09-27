@@ -10,6 +10,9 @@ router.get("/", async (req, res) => {
       path: "comments",
       populate: { path: "author", select: ["username", "profile_image"] },
     },
+    {
+      path: "likes",
+    },
   ];
   const posts = await Post.find({})
     .sort({ created: -1 })

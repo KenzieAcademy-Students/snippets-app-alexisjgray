@@ -20,15 +20,19 @@ const AvatarPicker = ({ profileImage, setProfileImage }) => {
   return (
     <div>
       Choose Your Avatar:
-      {imgs.map((avatar, index) => (
-        <img
-          className={profileImage === avatar ? "avatarImage avatar" : "avatar"}
-          src={avatar}
-          style={{ width: "80px", height: "80px" }}
-          key={index}
-          onClick={() => handleAvatarChange(avatar)}
-        />
-      ))}
+      <div className="avatarContainer">
+        {imgs.map((avatar, index) => (
+          <img
+            className={
+              profileImage === avatar ? "avatarImage avatar" : "avatar"
+            }
+            src={avatar}
+            style={{ width: "80px", height: "80px" }}
+            key={index}
+            onClick={() => handleAvatarChange(avatar)}
+          />
+        ))}
+      </div>
     </div>
   );
 };

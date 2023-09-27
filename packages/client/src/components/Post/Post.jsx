@@ -1,5 +1,13 @@
 import React, { useState } from "react";
-import { Container, Button, Card, Figure, ListGroup } from "react-bootstrap";
+import {
+  Container,
+  Button,
+  Card,
+  Figure,
+  ListGroup,
+  OverlayTrigger,
+  Tooltip,
+} from "react-bootstrap";
 import { useNavigate, Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import "./Post.scss";
@@ -55,6 +63,12 @@ const Post = ({ post: { _id, author, text, comments, created, likes } }) => {
   };
 
   if (isDeleted) return <></>;
+
+  const tooltip = (
+    <Tooltip id="tooltip">
+      {likes.map((likes) => likes.username).join(", ")}
+    </Tooltip>
+  );
 
   return (
     <>
@@ -118,9 +132,11 @@ const Post = ({ post: { _id, author, text, comments, created, likes } }) => {
                   likedState ? "isLiked" : ""
                 }`}
               >
-                <Button variant="link" size="md" onClick={handleToggleLike}>
-                  {likedState ? <LikeIconFill /> : <LikeIcon />}
-                </Button>
+                <OverlayTrigger placement="bottom" overlay={tooltip}>
+                  <Button variant="link" size="md" onClick={handleToggleLike}>
+                    {likedState ? <LikeIconFill /> : <LikeIcon />}
+                  </Button>
+                </OverlayTrigger>
                 <span>{likesState}</span>
               </div>
             </div>

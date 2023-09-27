@@ -4,6 +4,7 @@ https://dev.to/salehmubashar/search-bar-in-react-js-545l
 https://stackoverflow.com/questions/2803532/how-do-i-put-a-clear-button-inside-my-html-text-input-box-like-the-iphone-does
 https://stackoverflow.com/questions/36113367/how-to-make-image-buttons-in-jsx
 https://developer.mozilla.org/en-US/docs/Learn/Forms/Sending_and_retrieving_form_data
+https://react-bootstrap-v3.netlify.app/components/tooltips/
 
 # Welcome to Kenzie Snippets!
 
