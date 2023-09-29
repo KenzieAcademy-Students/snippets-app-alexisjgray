@@ -5,6 +5,8 @@ https://stackoverflow.com/questions/2803532/how-do-i-put-a-clear-button-inside-m
 https://stackoverflow.com/questions/36113367/how-to-make-image-buttons-in-jsx
 https://developer.mozilla.org/en-US/docs/Learn/Forms/Sending_and_retrieving_form_data
 https://react-bootstrap-v3.netlify.app/components/tooltips/
+https://blog.logrocket.com/using-react-toastify-style-toast-messages/
+https://stackoverflow.com/questions/51143800/how-to-set-match-password-in-react-js
 
 # Welcome to Kenzie Snippets!
 

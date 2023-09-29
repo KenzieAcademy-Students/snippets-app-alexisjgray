@@ -7,7 +7,7 @@ const SearchBar = ({ keywords, setKeywords }) => {
     setKeywords(e.target.value);
   };
 
-  const handleClearSearchInput = () => {
+  const handleClearSearchInput = (e) => {
     setKeywords("");
   };
 

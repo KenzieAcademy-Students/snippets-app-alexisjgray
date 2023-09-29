@@ -1,11 +1,19 @@
 import React, { useState, useEffect } from "react";
-import { Container, Card, Form, Button, Figure } from "react-bootstrap";
+import {
+  Container,
+  Card,
+  Form,
+  Button,
+  Figure,
+  FormLabel,
+} from "react-bootstrap";
 import { useNavigate, useParams } from "react-router-dom";
 import { LoadingSpinner, Post } from "../components";
 import { useProvideAuth } from "../hooks/useAuth";
 import { useRequireAuth } from "../hooks/useRequireAuth";
 import api from "../utils/api.utils.js";
 import AvatarPicker from "./RegisterPage/AvatarPicker/AvatarPicker";
+import { toast } from "react-toastify";
 
 const UserDetailPage = () => {
   const { state } = useProvideAuth();
@@ -15,6 +23,8 @@ const UserDetailPage = () => {
   const [open, setOpen] = useState(false);
   const [data, setData] = useState({
     password: "",
+    current_password: "",
+    confirm_password: "",
     isSubmitting: false,
     errorMessage: null,
   });
@@ -69,6 +79,10 @@ const UserDetailPage = () => {
   const handleUpdatePassword = async (event) => {
     event.preventDefault();
     event.stopPropagation();
+    if (data.password !== data.confirm_password) {
+      toast.error("Passwords Do Not Match");
+      return;
+    }
     const form = event.currentTarget;
     // handle invalid or empty form
     if (form.checkValidity() === false) {
@@ -81,13 +95,18 @@ const UserDetailPage = () => {
       errorMessage: null,
     });
     try {
-      // write code to call edit user endpoint 'users/:id'
+      const response = await api.put(`/users/${params.uname}`, {
+        confirm_password: data.confirm_password,
+        password: data.password,
+        current_password: data.current_password,
+      });
       const {
         user: { uid, username },
       } = state;
       console.log(data.password, uid, username);
       setValidated(false);
-      // don't forget to update loading state and alert success
+      setLoading(false);
+      toast.success("Password Updated");
     } catch (error) {
       setData({
         ...data,
@@ -150,12 +169,29 @@ const UserDetailPage = () => {
                       onSubmit={handleUpdatePassword}
                     >
                       <Form.Group>
+                        <Form.Label>Current Password</Form.Label>
+                        <Form.Control
+                          type="password"
+                          name="current_password"
+                          required
+                          value={data.current_password}
+                          onChange={handleInputChange}
+                        />
                         <Form.Label htmlFor="password">New Password</Form.Label>
                         <Form.Control
                           type="password"
                           name="password"
                           required
                           value={data.password}
+                          onChange={handleInputChange}
+                        />
+                        <Form.Label>Confirm Password</Form.Label>
+                        <Form.Control
+                          type="password"
+                          name="confirm_password"
+                          required
+                          pattern={data.password}
+                          value={data.confirm_password}
                           onChange={handleInputChange}
                         />
                         <Form.Control.Feedback type="invalid">

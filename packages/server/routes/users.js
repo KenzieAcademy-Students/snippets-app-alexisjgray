@@ -18,9 +18,24 @@ router
     res.json(user.toJSON());
   })
   .put(async (req, res) => {
-    const { password } = req.body;
+    const { password, current_password } = req.body;
     const { username } = req.params;
+    const user = await User.findOne({ username: username });
+    const passwordCorrect =
+      user === null
+        ? false
+        : await bcrypt.compare(current_password, user.passwordHash);
 
+    if (!(user && passwordCorrect)) {
+      return res.status(401).json({
+        error: "invalid username or password",
+      });
+    }
+    if (password.length < 8 || password.length > 20) {
+      return res.status(400).json({
+        error: "Password Must Be Between 8 and 20 Characters",
+      });
+    }
     const hashedpassword = await bcrypt.hash(password, 12);
 
     try {

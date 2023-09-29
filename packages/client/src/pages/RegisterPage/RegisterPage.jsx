@@ -11,6 +11,7 @@ const initialState = {
   username: "",
   email: "",
   password: "",
+  confirm_password: "",
   isSubmitting: false,
   errorMessage: null,
 };
@@ -52,6 +53,7 @@ const RegisterPage = () => {
     event.stopPropagation();
 
     if (form.checkValidity() === false) {
+      return;
     }
 
     setData({
@@ -64,6 +66,7 @@ const RegisterPage = () => {
         data.username,
         data.email,
         data.password,
+        // data.confirm_password,
         profileImage
       );
       setData({
@@ -137,6 +140,15 @@ const RegisterPage = () => {
                 onChange={handleInputChange}
               />
             </Form.Group>
+            <Form.Label>Confirm Password</Form.Label>
+            <Form.Control
+              type="password"
+              name="confirm_password"
+              required
+              pattern={data.password}
+              value={data.confirm_password}
+              onChange={handleInputChange}
+            />
             {data.errorMessage && (
               <span className="form-error text-warning">
                 {data.errorMessage}

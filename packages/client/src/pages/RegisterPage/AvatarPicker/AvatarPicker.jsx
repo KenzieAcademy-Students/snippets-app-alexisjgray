@@ -27,7 +27,7 @@ const AvatarPicker = ({ profileImage, setProfileImage }) => {
               profileImage === avatar ? "avatarImage avatar" : "avatar"
             }
             src={avatar}
-            style={{ width: "80px", height: "80px" }}
+            style={{ width: "50px", height: "50px" }}
             key={index}
             onClick={() => handleAvatarChange(avatar)}
           />
