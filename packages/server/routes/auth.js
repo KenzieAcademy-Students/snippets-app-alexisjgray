@@ -14,7 +14,7 @@ router.post("/signup", async (req, res) => {
   const { username, email, password, profile_image, confirm_password } =
     req.body;
 
-  if (!password || !username || !email || confirm_password !== password) {
+  if (!password || !username || !email || !confirm_password) {
     return res.status(422).json({ error: "please add all the fields" });
   }
 
