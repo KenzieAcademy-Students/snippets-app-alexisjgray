@@ -5,6 +5,7 @@ import { LoadingSpinner, Post } from "../components";
 import { useProvideAuth } from "../hooks/useAuth";
 import { useRequireAuth } from "../hooks/useRequireAuth";
 import api from "../utils/api.utils.js";
+import AvatarPicker from "./RegisterPage/AvatarPicker/AvatarPicker";
 
 const UserDetailPage = () => {
   const { state } = useProvideAuth();
@@ -18,6 +19,9 @@ const UserDetailPage = () => {
     errorMessage: null,
   });
 
+  const [profileImage, setProfileImage] = useState("");
+  const [openAvatarPicker, setOpenAvatarPicker] = useState(false);
+
   let navigate = useNavigate();
   let params = useParams();
   const {
@@ -29,6 +33,7 @@ const UserDetailPage = () => {
       try {
         const userResponse = await api.get(`/users/${params.uname}`);
         setUser(userResponse.data);
+        setProfileImage(userResponse.data.profile_image);
         setLoading(false);
       } catch (err) {
         console.error(err.message);
@@ -36,6 +41,23 @@ const UserDetailPage = () => {
     };
     isAuthenticated && getUser();
   }, [params.uname, isAuthenticated]);
+
+  const handleAvatarChange = (event) => {
+    setProfileImage({
+      ...profileImage,
+      [event.target.profile_image]: event.target.value,
+    });
+  };
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+
+    const userResponse = await api.put(`/users/${params.uname}/avatar`, {
+      profile_image: profileImage,
+    });
+    setUser({ ...user, profile_image: profileImage });
+    setOpenAvatarPicker(false);
+  };
 
   const handleInputChange = (event) => {
     setData({
@@ -109,6 +131,7 @@ const UserDetailPage = () => {
               <Figure.Image src={user.profile_image} className="w-100 h-100" />
             </Figure>
             <Card.Title>{params.uname}</Card.Title>
+            <Card.Text>{user.email}</Card.Text>
             {state.user.username === params.uname && (
               <div
                 onClick={() => setOpen(!open)}
@@ -142,7 +165,6 @@ const UserDetailPage = () => {
                           Must be 8-20 characters long.
                         </Form.Text>
                       </Form.Group>
-
                       {data.errorMessage && (
                         <span className="form-error">{data.errorMessage}</span>
                       )}
@@ -152,6 +174,29 @@ const UserDetailPage = () => {
                     </Form>
                   </div>
                 </div>
+              </Container>
+            )}
+            {state.user.username === params.uname && (
+              <div>
+                <button
+                  onClick={() => setOpenAvatarPicker(!openAvatarPicker)}
+                  style={{ cursor: "pointer", color: "#BFBFBF" }}
+                >
+                  Select New Avatar
+                </button>
+              </div>
+            )}
+            {openAvatarPicker && (
+              <Container animation="false">
+                <AvatarPicker
+                  profileImage={profileImage}
+                  setProfileImage={setProfileImage}
+                />
+                <Form onSubmit={handleSubmit}>
+                  <Button type="submit">
+                    {profileImage.isSubmitting ? <LoadingSpinner /> : "Update"}
+                  </Button>
+                </Form>
               </Container>
             )}
           </Card.Body>

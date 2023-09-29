@@ -1,17 +1,22 @@
+Cody helped me
+https://plainenglish.io/blog/how-to-implement-a-search-bar-in-react-js
+https://dev.to/salehmubashar/search-bar-in-react-js-545l
+https://stackoverflow.com/questions/2803532/how-do-i-put-a-clear-button-inside-my-html-text-input-box-like-the-iphone-does
+https://stackoverflow.com/questions/36113367/how-to-make-image-buttons-in-jsx
+https://developer.mozilla.org/en-US/docs/Learn/Forms/Sending_and_retrieving_form_data
+https://react-bootstrap-v3.netlify.app/components/tooltips/
 
 # Welcome to Kenzie Snippets!
 
-You will be using this app to explore the architecture of a Full-Stack MERN Application.  
+You will be using this app to explore the architecture of a Full-Stack MERN Application.
 
 ## Getting Started
 
-You will need to install the following tools: 
-
+You will need to install the following tools:
 
 ### MongoDB
 
-
-For this application, you will be using MongoDB Atlas (a cloud-based Mongo database) to save your data. However, to initialize the application and properly seed the database in the first place, you will need some local MongoDB tools. 
+For this application, you will be using MongoDB Atlas (a cloud-based Mongo database) to save your data. However, to initialize the application and properly seed the database in the first place, you will need some local MongoDB tools.
 
 Refer to Reading - MongoDB Atlas - Clusters and Connections for information on how to connect your application to MongoDB Atlas.
 
@@ -21,16 +26,15 @@ Follow along below for installing the local MongoDB tools.
 
 Follow the guide here: [Install MongoDB on MacOS](https://docs.mongodb.com/manual/tutorial/install-mongodb-on-os-x/)
 
-
 #### Linux
 
 Follow the guide here: [Install MongoDB on Linux](https://docs.mongodb.com/manual/administration/install-on-linux/)
 
 #### Windows
 
-First, download the [MongoDB Community Server](https://fastdl.mongodb.org/windows/mongodb-windows-x86_64-4.4.6-signed.msi) MSI and install it.  You can use all of the default options. 
+First, download the [MongoDB Community Server](https://fastdl.mongodb.org/windows/mongodb-windows-x86_64-4.4.6-signed.msi) MSI and install it. You can use all of the default options.
 
-When that is finished installing, you can close "MongoDB Compass" if that pops up.  
+When that is finished installing, you can close "MongoDB Compass" if that pops up.
 
 Then you must start the MongoDB Service:
 
@@ -42,18 +46,17 @@ Then download the [MongoDB Database Tools](https://fastdl.mongodb.org/tools/db/m
 
 If you get stuck, you can reference the guide here: [Install MongoDB on Windows](https://docs.mongodb.com/manual/tutorial/install-mongodb-on-windows/)
 
-
 ## Running the application
 
 This app is configured to run both the frontend and the backend from the root directory of this project.
 
-First, install all of the dependencies.  You should only need to do this once.
+First, install all of the dependencies. You should only need to do this once.
 
 ```
 npm install
 ```
 
-You can start the entire application by doing: 
+You can start the entire application by doing:
 
 ```
 npm run dev
@@ -65,16 +68,15 @@ _Note that you must be in the root folder of this repository to run both the fro
 
 The front and back ends are held inside of `packages/client` and `packages/server`
 
-If you `cd` into those folders, you can run them individually by using `npm run dev`. 
-
+If you `cd` into those folders, you can run them individually by using `npm run dev`.
 
 ### Adding packages
+
 During development, you can add dependencies to the frontend or backend from the root folder. For example:
 
 ```
-npm install -w client react-router-dom 
-npm install -w server mongoose 
+npm install -w client react-router-dom
+npm install -w server mongoose
 ```
 
-This would add a "react-router-dom" dependency to the frontend, and a "mongoose" dependency to the backend. 
-
+This would add a "react-router-dom" dependency to the frontend, and a "mongoose" dependency to the backend.

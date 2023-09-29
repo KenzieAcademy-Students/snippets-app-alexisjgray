@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Container, Row, Col, InputGroup, Form, Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import "./RegisterPage.scss";
 import { useProvideAuth } from "../../hooks/useAuth";
 import { LandingHeader, LoadingSpinner } from "../../components";
 import { setAuthToken } from "../../utils/api.utils";
+import AvatarPicker from "./AvatarPicker/AvatarPicker";
 
 const initialState = {
   username: "",
@@ -107,11 +108,17 @@ const RegisterPage = () => {
                   onChange={handleInputChange}
                 />
               </InputGroup>
+              <div className="avatarContainer">
+                <AvatarPicker
+                  profileImage={profileImage}
+                  setProfileImage={setProfileImage}
+                />
+              </div>
             </Form.Group>
             <Form.Group controlId="email-register">
               <Form.Label>Email</Form.Label>
               <Form.Control
-                type="text"
+                type="email"
                 name="email"
                 placeholder="Email"
                 required

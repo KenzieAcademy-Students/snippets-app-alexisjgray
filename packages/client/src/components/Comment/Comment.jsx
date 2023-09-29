@@ -1,6 +1,7 @@
 import React from "react";
 import { Figure, Row, Col } from "react-bootstrap";
 import "./Comment.scss";
+import { timeSince } from "../../utils/timeSince";
 
 const Comment = ({ comment }) => {
   const { author } = comment;
@@ -25,7 +26,9 @@ const Comment = ({ comment }) => {
       </Col>
       <Col xs={9} className="d-flex flex-column">
         <div className="mb-2 comment-author">
-          <span>@{comment.author?.username}</span>
+          <span>
+            @{comment.author?.username} - {timeSince(comment.created)}
+          </span>
         </div>
         <p className="comment-text">{comment.text}</p>
       </Col>

@@ -1,5 +1,5 @@
-import mongoose from 'mongoose'
-const { ObjectId } = mongoose.Schema.Types
+import mongoose from "mongoose";
+const { ObjectId } = mongoose.Schema.Types;
 
 const userSchema = new mongoose.Schema({
   username: {
@@ -7,25 +7,30 @@ const userSchema = new mongoose.Schema({
     unique: true,
     required: true,
   },
+  email: {
+    type: String,
+    required: true,
+    match: /^([a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+.[a-zA-Z]{2,})$/,
+  },
   passwordHash: {
     type: String,
     required: true,
   },
-  profile_image: { type: String, default: '/fox.svg' },
+  profile_image: { type: String, default: "/fox.svg" },
   posts: [
     {
       type: ObjectId,
-      ref: 'Post',
+      ref: "Post",
     },
   ],
   postLikes: [
     {
       type: ObjectId,
-      ref: 'Post',
+      ref: "Post",
     },
   ],
-})
+});
 
-const User = mongoose.model('User', userSchema)
+const User = mongoose.model("User", userSchema);
 
-export default User
+export default User;

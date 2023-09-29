@@ -10,6 +10,9 @@ router.get("/", async (req, res) => {
       path: "comments",
       populate: { path: "author", select: ["username", "profile_image"] },
     },
+    {
+      path: "likes",
+    },
   ];
   const posts = await Post.find({})
     .sort({ created: -1 })
@@ -59,10 +62,10 @@ router.get("/:id", async (req, res) => {
 });
 
 router.delete("/:id", requireAuth, async (req, res, next) => {
-  /**
-   * Your Code Here
-   */
-  res.status(404).json("Placeholder response");
+  const { id } = req.params;
+  const deletePost = await Post.findByIdAndDelete(id);
+  if (!deletePost) return res.sendStatus(404);
+  res.status(200).json("Placeholder response");
 });
 
 router.all("/like/:postId", requireAuth, async (req, res) => {
