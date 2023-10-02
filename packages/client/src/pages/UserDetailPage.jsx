@@ -83,6 +83,10 @@ const UserDetailPage = () => {
       toast.error("Passwords Do Not Match");
       return;
     }
+    if (data.password.length < 8 || data.password.length > 20) {
+      toast.error("Password Must Be Between 8 and 20 Characters");
+      return;
+    }
     const form = event.currentTarget;
     // handle invalid or empty form
     if (form.checkValidity() === false) {

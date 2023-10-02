@@ -64,8 +64,10 @@ const Post = ({ post: { _id, author, text, comments, created, likes } }) => {
 
   if (isDeleted) return <></>;
 
-  const tooltip = (
-    <Tooltip>{likes.map((likes) => likes.username).join(", ")}</Tooltip>
+  const tooltip = (props) => (
+    <Tooltip id="my-tooltip" {...props}>
+      {likes.map((likes) => likes.username).join(", ")}
+    </Tooltip>
   );
 
   return (

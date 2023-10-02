@@ -6,6 +6,7 @@ import { useProvideAuth } from "../../hooks/useAuth";
 import { LandingHeader, LoadingSpinner } from "../../components";
 import { setAuthToken } from "../../utils/api.utils";
 import AvatarPicker from "./AvatarPicker/AvatarPicker";
+import { toast } from "react-toastify";
 
 const initialState = {
   username: "",
@@ -52,6 +53,14 @@ const RegisterPage = () => {
     event.preventDefault();
     event.stopPropagation();
 
+    if (data.password !== data.confirm_password) {
+      toast.error("Passwords Do Not Match");
+      return;
+    }
+    if (data.password.length < 8 || data.password.length > 20) {
+      toast.error("Password Must Be Between 8 and 20 Characters");
+      return;
+    }
     if (form.checkValidity() === false) {
       return;
     }
@@ -66,7 +75,7 @@ const RegisterPage = () => {
         data.username,
         data.email,
         data.password,
-        // data.confirm_password,
+        data.confirm_password,
         profileImage
       );
       setData({

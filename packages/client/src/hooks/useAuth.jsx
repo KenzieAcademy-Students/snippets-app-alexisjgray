@@ -56,11 +56,12 @@ export function useProvideAuth() {
   const { state, dispatch } = useAuth();
   let navigate = useNavigate();
 
-  const signin = async (username, password) => {
+  const signin = async (username, password, confirm_password) => {
     try {
       const response = await api.post(`/auth/signin`, {
         username: username,
         password: password,
+        confirm_password: confirm_password,
       });
       localStorage.setItem("MernAppUser", JSON.stringify(response.data));
       dispatch({
@@ -78,11 +79,18 @@ export function useProvideAuth() {
     }
   };
 
-  const signup = async (username, email, password, profile_image) => {
+  const signup = async (
+    username,
+    email,
+    password,
+    profile_image,
+    confirm_password
+  ) => {
     try {
       await api.post(`/auth/signup`, {
         username: username,
         password: password,
+        confirm_password: confirm_password,
         email: email,
         profile_image: profile_image,
       });

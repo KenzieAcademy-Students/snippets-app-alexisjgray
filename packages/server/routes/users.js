@@ -17,7 +17,7 @@ router
     if (!user) return res.sendStatus(404);
     res.json(user.toJSON());
   })
-  .put(async (req, res) => {
+  .put(requireAuth, async (req, res) => {
     const { password, current_password } = req.body;
     const { username } = req.params;
     const user = await User.findOne({ username: username });
